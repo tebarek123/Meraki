@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Cart and Delivery History</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="cart.css" />
+</head>
+<body>
+    <header class="cart-header">
+        <nav class="cart-nav">
+            <div class="logo">
+                <h1>Merāki</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Products</a>
+                <a href="index.html#about">About</a>
+                <a href="cart.html">Cart</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <header class="header">
+            <div>
+                <h1>My Purchases</h1>
+                <p>Welcome back, <?php echo htmlspecialchars($customerName); ?></p>
+            </div>
+            <div class="badge">Order history & delivery status</div>
+        </header>
+
+        <section class="stats">
+            <div class="stat-box">
+                <div class="label">Products bought</div>
+                <div class="value"><?php echo count($previouslyBought); ?></div>
+            </div>
+            <div class="stat-box">
+                <div class="label">Total spent</div>
+                <div class="value">$<?php echo number_format($totalSpent, 2); ?></div>
+            </div>
+            <div class="stat-box">
+                <div class="label">Delivered items</div>
+                <div class="value"><?php echo count($deliveredItems); ?></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h2>Previously Bought Products</h2>
+                <span class="pill"><?php echo count($previouslyBought); ?> total</span>
+            </div>
+
+            <div class="product-grid">
+                <?php foreach ($previouslyBought as $product): ?>
+                    <article class="product-card">
+                        <img src="<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" />
+                        <div class="product-info">
+                            <div class="product-title"><?php echo htmlspecialchars($product['name']); ?></div>
+                            <div class="meta">
+                                <span><?php echo htmlspecialchars($product['category']); ?></span>
+                                <span><?php echo htmlspecialchars($product['date']); ?></span>
+                            </div>
+                            <div class="meta">
+                                <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
+                                <span>Qty: <?php echo htmlspecialchars($product['quantity']); ?></span>
+                            </div>
+                            <div class="status"><?php echo htmlspecialchars($product['status']); ?></div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head">
+                <h2>Delivered Parts</h2>
+                <span class="pill">$<?php echo number_format($deliveredTotal, 2); ?> total</span>
+            </div>
+
+            <?php foreach ($deliveredItems as $item): ?>
+                <div class="delivery-card">
+                    <img src="<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" />
+                    <div class="delivery-details">
+                        <div class="detail-stack">
+                            <div class="detail-label">Product</div>
+                            <div class="detail-value"><?php echo htmlspecialchars($item['name']); ?></div>
+                        </div>
+                        <div class="detail-stack">
+                            <div class="detail-label">Quantity</div>
+                            <div class="detail-value"><?php echo htmlspecialchars($item['quantity']); ?></div>
+                        </div>
+                        <div class="detail-stack">
+                            <div class="detail-label">Price</div>
+                            <div class="detail-value">$<?php echo number_format($item['price'], 2); ?></div>
+                        </div>
+                        <div class="detail-stack">
+                            <div class="detail-label">Delivered</div>
+                            <div class="detail-value"><?php echo htmlspecialchars($item['deliveryDate']); ?></div>
+                        </div>
+                        <div class="detail-stack">
+                            <div class="detail-label">Tracking</div>
+                            <div class="detail-value"><?php echo htmlspecialchars($item['tracking']); ?></div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </section>
+    </div>
+</body>
+</html>
