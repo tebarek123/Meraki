@@ -14,6 +14,14 @@
         <div class="logo">
           <h1>Merāki</h1>
         </div>
+
+        <label class="menu-icon" for="menu-toggle" aria-label="Toggle menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </label>
+        <input type="checkbox" id="menu-toggle" />
+
         <div class="nav-links">
           <a href="index.html">Home</a>
           <a href="index.html#products">Products</a>
@@ -71,6 +79,21 @@
               <span>Total</span>
               <strong id="total">$0.00</strong>
             </div>
+
+            <form id="payment-form" class="payment-form">
+              <label>
+                Bank transfer transaction number
+                <input type="text" id="transaction-number" name="transactionNumber" placeholder="e.g. 123456789" required />
+              </label>
+
+              <label>
+                Upload transfer screenshot
+                <input type="file" id="payment-proof" name="paymentProof" accept="image/*" required />
+              </label>
+
+              <div id="proof-preview" class="proof-preview hidden"></div>
+            </form>
+
             <button id="checkout-btn" type="button" class="checkout-btn">Place Order</button>
           </aside>
         </div>

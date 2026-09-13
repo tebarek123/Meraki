@@ -45,10 +45,10 @@ function updateCartBadge() {
 }
 
 function formatMoney(value) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
-  }).format(value);
+  const amount = Number(value) || 0;
+  return `${new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 0
+  }).format(amount)} ETB`;
 }
 
 function addToCart(product) {
@@ -238,22 +238,50 @@ function placeOrder() {
     return;
   }
 
-  const history = getOrderHistory();
-  const placedOrder = {
-    id: Date.now(),
-    date: new Date().toISOString(),
-    status: 'Confirmed',
-    total: getCartSubtotal() + 18,
-    items: cart.map((item) => ({ ...item }))
+  const transactionInput = document.getElementById('transaction-number');
+  const proofInput = document.getElementById('payment-proof');
+  const preview = document.getElementById('proof-preview');
+
+  const transactionNumber = transactionInput ? transactionInput.value.trim() : '';
+  const proofFile = proofInput && proofInput.files && proofInput.files[0] ? proofInput.files[0] : null;
+
+  if (!transactionNumber || !proofFile) {
+    showToast('Please add a transfer number and payment screenshot.');
+    return;
+  }
+
+  const fileReader = new FileReader();
+
+  fileReader.onload = function () {
+    const history = getOrderHistory();
+    const placedOrder = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      status: 'Confirmed',
+      total: getCartSubtotal() + 18,
+      transactionNumber,
+      paymentProof: fileReader.result,
+      items: cart.map((item) => ({ ...item }))
+    };
+
+    history.unshift(placedOrder);
+    saveOrderHistory(history);
+    saveCart([]);
+    renderCart();
+    renderOrderHistory();
+    updateCartBadge();
+
+    if (transactionInput) transactionInput.value = '';
+    if (proofInput) proofInput.value = '';
+    if (preview) {
+      preview.classList.add('hidden');
+      preview.innerHTML = '';
+    }
+
+    showToast('Order placed successfully!');
   };
 
-  history.unshift(placedOrder);
-  saveOrderHistory(history);
-  saveCart([]);
-  renderCart();
-  renderOrderHistory();
-  updateCartBadge();
-  showToast('Order placed successfully!');
+  fileReader.readAsDataURL(proofFile);
 }
 
 function showToast(message) {
@@ -286,6 +314,29 @@ function bindAddToCartButtons() {
   });
 }
 
+function bindProofPreview() {
+  const proofInput = document.getElementById('payment-proof');
+  const preview = document.getElementById('proof-preview');
+
+  if (!proofInput || !preview) return;
+
+  proofInput.addEventListener('change', () => {
+    const file = proofInput.files && proofInput.files[0];
+    if (!file) {
+      preview.classList.add('hidden');
+      preview.innerHTML = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function () {
+      preview.classList.remove('hidden');
+      preview.innerHTML = `<img src="${reader.result}" alt="Payment proof preview" />`;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function bindCheckoutButton() {
   const checkoutButton = document.getElementById('checkout-btn');
   if (checkoutButton) {
@@ -297,6 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartBadge();
   bindAddToCartButtons();
   bindCheckoutButton();
+  bindProofPreview();
 
   if (document.body.classList.contains('cart-page')) {
     renderCart();
