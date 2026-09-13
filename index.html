@@ -25,7 +25,7 @@
           <a href="#products">Products</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
-          <a href="cart.html">Cart</a>
+          <a href="cart.html" class="cart-link">Cart <span id="cart-count" class="cart-count-badge">0</span></a>
         </div>
       </nav>
     </header>
@@ -83,13 +83,23 @@
             />
             <div class="product-info">
               <h3 class="product-title">Pumpkin Seed Oil</h3>
-              <p class="product-price">800 ETB</p>
+              <p class="product-price">$20.00</p>
               <p class="product-desc">
                 Nutrient-dense oil rich in zinc, Omega-3, and Omega-6 fatty
                 acids. Perfect for strengthening hair follicles and maintaining
                 skin elasticity.
               </p>
-              <a href="#" class="btn">Add to Cart</a>
+              <button
+                type="button"
+                class="btn add-to-cart"
+                data-id="pumpkin-seed-oil"
+                data-name="Pumpkin Seed Oil"
+                data-price="20"
+                data-image="pumpkinseed-oil.png"
+                data-category="Hair Care"
+              >
+                Add to Cart
+              </button>
             </div>
           </article>
           <article class="product-card">
@@ -99,12 +109,22 @@
             />
             <div class="product-info">
               <h3 class="product-title">Black Seed Oil</h3>
-              <p class="product-price">800 ETB</p>
+              <p class="product-price">$24.00</p>
               <p class="product-desc">
                 Hexane-free black seed oil known for soothing inflammation,
                 supporting immunity, and encouraging smooth, glowing skin.
               </p>
-              <a href="#" class="btn">Add to Cart</a>
+              <button
+                type="button"
+                class="btn add-to-cart"
+                data-id="black-seed-oil"
+                data-name="Black Seed Oil"
+                data-price="24"
+                data-image="blackseed-oils.png"
+                data-category="Wellness"
+              >
+                Add to Cart
+              </button>
             </div>
           </article>
           <article class="product-card">
@@ -114,12 +134,22 @@
             />
             <div class="product-info">
               <h3 class="product-title">Castor Seed Oil</h3>
-              <p class="product-price">800 ETB</p>
+              <p class="product-price">$22.00</p>
               <p class="product-desc">
                 Rich, nourishing oil that deeply moisturizes and supports thick,
                 healthy hair growth while promoting skin softness.
               </p>
-              <a href="#" class="btn">Add to Cart</a>
+              <button
+                type="button"
+                class="btn add-to-cart"
+                data-id="castor-seed-oil"
+                data-name="Castor Seed Oil"
+                data-price="22"
+                data-image="castor-oil.png"
+                data-category="Skin Care"
+              >
+                Add to Cart
+              </button>
             </div>
           </article>
         </div>
@@ -154,5 +184,6 @@
     <footer id="contact">
       <p>© 2026 Merāki. Pure oils for radiant living.</p>
     </footer>
+    <script defer src="script.js"></script>
   </body>
 </html>

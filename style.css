@@ -50,6 +50,25 @@ header {
     border-bottom: 1px solid rgba(223, 207, 176, 0.1);
 }
 
+body.cart-page .menu-icon,
+body.cart-page #menu-toggle {
+    display: none !important;
+}
+
+body.cart-page .nav-links {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    animation: none !important;
+}
+
 nav {
     max-width: 1200px;
     margin: 0 auto;
