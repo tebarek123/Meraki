@@ -78,6 +78,9 @@
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
+body.cart-page .menu-icon {
+  display: none;
+}
 
 .cart-page .section,
 .summary-panel {
