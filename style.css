@@ -453,13 +453,15 @@ main {
 
 .company-contact {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    grid-template-columns: 1fr 1.2fr 1fr;
     gap: 1.5rem;
     margin-bottom: 3rem;
+    align-items: stretch;
 }
 
 .contact-info-card,
-.map-card {
+.map-card,
+.events-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(17, 113, 67, 0.1));
     border: 1px solid rgba(223, 207, 176, 0.12);
     border-radius: 24px;
@@ -467,10 +469,46 @@ main {
     box-shadow: var(--shadow);
 }
 
-.contact-info-card h3 {
+.contact-info-card h3,
+.events-card h3 {
     color: var(--gold-soft);
     font-size: clamp(1.8rem, 2vw, 2.3rem);
     margin-bottom: 1rem;
+}
+
+.events-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.event-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1.1rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(223, 207, 176, 0.09);
+    color: rgba(246, 234, 215, 0.85);
+}
+
+.event-item strong {
+    color: var(--gold-soft);
+    font-size: 1.05rem;
+}
+
+.event-item span {
+    color: rgba(246, 234, 215, 0.8);
+    line-height: 1.7;
 }
 
 .contact-row {
@@ -503,21 +541,26 @@ main {
     align-items: stretch;
 }
 
-.map-placeholder {
+.map-link {
+    display: block;
     width: 100%;
     min-height: 260px;
     border-radius: 18px;
-    border: 1px solid rgba(223, 207, 176, 0.12);
-    background:
-        linear-gradient(rgba(10, 16, 13, 0.28), rgba(10, 16, 13, 0.28)),
-        url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #f7f6f3;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.map-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+}
+
+.map-link iframe {
+    width: 100%;
+    min-height: 260px;
+    border: 0;
+    display: block;
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .contact-actions {
@@ -562,6 +605,16 @@ footer {
 
     .contact-row a {
         text-align: left;
+    }
+}
+
+@media (max-width: 980px) {
+    .company-contact {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .events-card {
+        grid-column: 1 / -1;
     }
 }
 
